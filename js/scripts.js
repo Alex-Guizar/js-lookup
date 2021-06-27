@@ -1,3 +1,5 @@
+// Creates pokemonList variable and adds pokemon information to the list:
+// name, height, types
 let pokemonList = [
   {
     name: 'Charmander',
@@ -31,4 +33,8 @@ let pokemonList = [
   }
 ];
 
-console.log(pokemonList);
+// Iterate through pokemon list, writing each one to the document
+for (let i = 0; i < pokemonList.length; i++) {
+  // Check if pokemon is taller then 5, if so add excalamation text "Wow, that's big!"
+  document.write(`<p>${pokemonList[i].name} (height: ${pokemonList[i].height})${pokemonList[i].height > 5 ? ' Wow, that\'s big!' : ''}</p>`);
+}
