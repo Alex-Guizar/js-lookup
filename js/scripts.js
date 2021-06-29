@@ -34,17 +34,34 @@ let pokemonRepository = (function() {
     }
   ];
 
+  // function to return full pokemon list
   function getAll() {
     return pokemonList;
   }
 
+  // function to add pokemon to pokemonList
   function add(pokemon) {
-    pokemonList.push(pokemon);
+    // Check if pokemon variable is an object
+    if (typeof pokemon === 'object') {
+      let keys = Object.keys(pokemon);
+      // Check if pokemon variable has 'name', 'height', and 'types' keys
+      if (keys.indexOf('name') >= 0 && keys.indexOf('height') >= 0 && keys.indexOf('types') >= 0) {
+        pokemonList.push(pokemon);
+      }
+    }
+  }
+
+  // functio to search for and return pokemon based on name
+  function search(name) {
+    return pokemonList.filter(function(pokemon) {
+      return pokemon.name.toLowerCase() === name.toLowerCase();
+    });
   }
 
   return {
     getAll: getAll,
-    add: add
+    add: add,
+    search: search
   };
 })();
 
