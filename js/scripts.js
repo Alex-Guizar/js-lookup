@@ -34,7 +34,7 @@ let pokemonList = [
 ];
 
 // Iterate through pokemon list, writing each one to the document
-for (let i = 0; i < pokemonList.length; i++) {
+pokemonList.forEach(function(pokemon) {
   // Check if pokemon is taller then 5, if so add excalamation text "Wow, that's big!"
-  document.write(`<p>${pokemonList[i].name} (height: ${pokemonList[i].height})${pokemonList[i].height > 5 ? ' Wow, that\'s big!' : ''}</p>`);
-}
+  document.write(`<p>${pokemon.name} (height: ${pokemon.height})${pokemon.height > 5 ? ' Wow, that\'s big!' : ''}</p>`);
+});
