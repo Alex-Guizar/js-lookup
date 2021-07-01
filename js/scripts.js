@@ -51,7 +51,20 @@ let pokemonRepository = (function() {
     }
   }
 
-  // functio to search for and return pokemon based on name
+  // function to create a list item and button for each pokemon and add it to the empty ul.pokemon-list
+  function addListItem(pokemon) {
+    let pokemonListElement = document.querySelector('.pokemon-list'); // variable assigned to empty ul to hold pokemon
+    let listItem = document.createElement('li'); // create list item to hold pokemon button
+    let button = document.createElement('button'); // create button to be used to interact with for pokemon info
+
+    button.innerText = pokemon.name;
+    button.classList.add('pokemon-list__btn');
+
+    listItem.appendChild(button);
+    pokemonListElement.appendChild(listItem);
+  }
+
+  // function to search for and return pokemon based on name
   function search(name) {
     return pokemonList.filter(function(pokemon) {
       return pokemon.name.toLowerCase() === name.toLowerCase();
@@ -61,19 +74,12 @@ let pokemonRepository = (function() {
   return {
     getAll: getAll,
     add: add,
+    addListItem: addListItem,
     search: search
   };
 })();
 
-// Iterate through pokemon list, creating a list item and button for each pokemon
+// Iterate through pokemon list, running the addListItem function for each pokemon
 pokemonRepository.getAll().forEach(function(pokemon) {
-  let pokemonListElement = document.querySelector('.pokemon-list'); // variable assigned to empty ul to hold pokemon
-  let listItem = document.createElement('li'); // create list item to hold pokemon button
-  let button = document.createElement('button'); // create button to be used to interact with for pokemon info
-
-  button.innerText = pokemon.name;
-  button.classList.add('pokemon-list__btn');
-
-  listItem.appendChild(button);
-  pokemonListElement.appendChild(listItem);
+  pokemonRepository.addListItem(pokemon);
 });
