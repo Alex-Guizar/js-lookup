@@ -65,8 +65,15 @@ let pokemonRepository = (function() {
   };
 })();
 
-// Iterate through pokemon list, writing each one to the document
+// Iterate through pokemon list, creating a list item and button for each pokemon
 pokemonRepository.getAll().forEach(function(pokemon) {
-  // Check if pokemon is taller then 5, if so add excalamation text "Wow, that's big!"
-  document.write(`<p>${pokemon.name} (height: ${pokemon.height})${pokemon.height > 5 ? ' Wow, that\'s big!' : ''}</p>`);
+  let pokemonListElement = document.querySelector('.pokemon-list'); // variable assigned to empty ul to hold pokemon
+  let listItem = document.createElement('li'); // create list item to hold pokemon button
+  let button = document.createElement('button'); // create button to be used to interact with for pokemon info
+
+  button.innerText = pokemon.name;
+  button.classList.add('pokemon-list__btn');
+
+  listItem.appendChild(button);
+  pokemonListElement.appendChild(listItem);
 });

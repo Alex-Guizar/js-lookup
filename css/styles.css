@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+.pokemon-list {
+  list-style: none;
+  padding: 0 16px;
+  margin: 0;
+}
+
+.pokemon-list__btn {
+  display: block;
+  color: #000;
+  background: #E6E8E7;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #E6E8E7;
+  margin-top: 16px;
+  text-align: left;
+}
