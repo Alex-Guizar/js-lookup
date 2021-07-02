@@ -51,6 +51,13 @@ let pokemonRepository = (function() {
     }
   }
 
+  // function to add click event to button and pass pokemon info
+  function addClickEvent(button, pokemon) {
+    button.addEventListener('click', function(e) {
+      showDetails(pokemon);
+    });
+  }
+
   // function to create a list item and button for each pokemon and add it to the empty ul.pokemon-list
   function addListItem(pokemon) {
     let pokemonListElement = document.querySelector('.pokemon-list'); // variable assigned to empty ul to hold pokemon
@@ -59,9 +66,16 @@ let pokemonRepository = (function() {
 
     button.innerText = pokemon.name;
     button.classList.add('pokemon-list__btn');
+    // Add click event to show details of the pokemon when the button is clicked
+    addClickEvent(button, pokemon);
 
     listItem.appendChild(button);
     pokemonListElement.appendChild(listItem);
+  }
+
+  // function to show details of pokemon that is passed
+  function showDetails(pokemon) {
+    console.log(pokemon);
   }
 
   // function to search for and return pokemon based on name
