@@ -28,6 +28,8 @@ let pokemonRepository = (function() {
     fetch(pokemon.detailsUrl).then(function(response) {
       return response.json();
     }).then(function(details) {
+      pokemon.imgUrl = details.sprites.front_default;
+      pokemon.height = details.height;
       console.log(details);
     }).catch(function(error) {
       console.log(error);
@@ -75,7 +77,7 @@ let pokemonRepository = (function() {
 
   // function to show details of pokemon that is passed
   function showDetails(pokemon) {
-    console.log(pokemon);
+    loadDetails(pokemon);
   }
 
   // function to search for and return pokemon based on name
