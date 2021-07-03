@@ -5,10 +5,12 @@ let pokemonRepository = (function() {
 
   // Load pokemon list from API
   function loadList() {
+    showLoadingMessage();
     return fetch('https://pokeapi.co/api/v2/pokemon/').then(function(response) {
       // format response into json
       return response.json();
     }).then(function(data) {
+      hideLoadingMessage();
       data.results.forEach(function(item) {
         const pokemon = {
           name: item.name,
@@ -19,19 +21,23 @@ let pokemonRepository = (function() {
         add(pokemon);
       });
     }).catch(function(error) {
+      hideLoadingMessage();
       console.log(error);
     });
   }
 
   // Load pokemon details from detailsUrl provided
   function loadDetails(pokemon) {
+    showLoadingMessage();
     fetch(pokemon.detailsUrl).then(function(response) {
       return response.json();
     }).then(function(details) {
+      hideLoadingMessage();
       pokemon.imgUrl = details.sprites.front_default;
       pokemon.height = details.height;
       console.log(details);
     }).catch(function(error) {
+      hideLoadingMessage();
       console.log(error);
     });
   }
@@ -85,6 +91,27 @@ let pokemonRepository = (function() {
     return pokemonList.filter(function(pokemon) {
       return pokemon.name.toLowerCase() === name.toLowerCase();
     });
+  }
+
+  // create and add loading message to header
+  function showLoadingMessage() {
+    const header = document.querySelector('.header');
+    const loadingElement = document.createElement('div');
+
+    loadingElement.innerText = 'Loading';
+    loadingElement.classList.add('loading');
+
+    header.appendChild(loadingElement);
+  }
+
+  // remove loading message from header if it exists
+  function hideLoadingMessage() {
+    const header = document.querySelector('.header');
+    const loadingElement = header.querySelector('.loading');
+
+    if (loadingElement !== null) {
+      header.removeChild(loadingElement);
+    }
   }
 
   return {
