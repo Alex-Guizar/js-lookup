@@ -81,6 +81,16 @@ let pokemonRepository = (function() {
     pokemonListElement.appendChild(listItem);
   }
 
+  // create and return image element with src and alt info added
+  function createImageElement(pokemon) {
+    let imageElement = document.createElement('img');
+
+    imageElement.src = pokemon.imgUrl;
+    imageElement.alt = `Image of ${pokemon.name}`;
+
+    return imageElement;
+  }
+
   // function to show details of pokemon that is passed
   function showDetails(pokemon) {
     loadDetails(pokemon);
@@ -95,8 +105,8 @@ let pokemonRepository = (function() {
 
   // create and add loading message to header
   function showLoadingMessage() {
-    const header = document.querySelector('.header');
-    const loadingElement = document.createElement('div');
+    let header = document.querySelector('.header');
+    let loadingElement = document.createElement('div');
 
     loadingElement.innerText = 'Loading';
     loadingElement.classList.add('loading');
@@ -106,8 +116,8 @@ let pokemonRepository = (function() {
 
   // remove loading message from header if it exists
   function hideLoadingMessage() {
-    const header = document.querySelector('.header');
-    const loadingElement = header.querySelector('.loading');
+    let header = document.querySelector('.header');
+    let loadingElement = header.querySelector('.loading');
 
     if (loadingElement !== null) {
       header.removeChild(loadingElement);
