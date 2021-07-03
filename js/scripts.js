@@ -1,38 +1,38 @@
 let pokemonRepository = (function() {
   // Creates pokemonList variable and adds pokemon information to the list:
   // name, height, types
-  let pokemonList = [
-    {
-      name: 'Charmander',
-      height: 0.7,
-      types: ['fire']
-    },
-    {
-      name: 'Gengar',
-      height: 1.5,
-      types: ['ghost', 'poison']
-    },
-    {
-      name: 'Gyarados',
-      height: 6.5,
-      types: ['water', 'flying']
-    },
-    {
-      name: 'Zapdos',
-      height: 1.6,
-      types: ['electric', 'flying']
-    },
-    {
-      name: 'Suicune',
-      height: 2,
-      types: ['water']
-    },
-    {
-      name: 'Ho-oh',
-      height: 3.8,
-      types: ['fire', 'flying']
-    }
-  ];
+  let pokemonList = [];
+
+  // Load pokemon list from API
+  function loadList() {
+    return fetch('https://pokeapi.co/api/v2/pokemon/').then(function(response) {
+      // format response into json
+      return response.json();
+    }).then(function(data) {
+      data.results.forEach(function(item) {
+        const pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        }
+
+        // Add formatted pokemon to main pokemonList
+        add(pokemon);
+      });
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  // Load pokemon details from detailsUrl provided
+  function loadDetails(pokemon) {
+    fetch(pokemon.detailsUrl).then(function(response) {
+      return response.json();
+    }).then(function(details) {
+      console.log(details);
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
 
   // function to return full pokemon list
   function getAll() {
@@ -45,7 +45,7 @@ let pokemonRepository = (function() {
     if (typeof pokemon === 'object') {
       let keys = Object.keys(pokemon);
       // Check if pokemon variable has 'name', 'height', and 'types' keys
-      if (keys.indexOf('name') >= 0 && keys.indexOf('height') >= 0 && keys.indexOf('types') >= 0) {
+      if (keys.indexOf('name') >= 0 && keys.indexOf('detailsUrl') >= 0) {
         pokemonList.push(pokemon);
       }
     }
@@ -86,6 +86,8 @@ let pokemonRepository = (function() {
   }
 
   return {
+    loadList: loadList,
+    loadDetails: loadDetails,
     getAll: getAll,
     add: add,
     addListItem: addListItem,
@@ -93,7 +95,9 @@ let pokemonRepository = (function() {
   };
 })();
 
-// Iterate through pokemon list, running the addListItem function for each pokemon
-pokemonRepository.getAll().forEach(function(pokemon) {
-  pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+  // Iterate through pokemon list, running the addListItem function for each pokemon
+  pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
