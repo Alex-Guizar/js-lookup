@@ -184,14 +184,9 @@ let pokemonRepository = (function() {
     pokemonHeight.innerText = `Height: ${pokemon.height}`;
     pokemonInfo.appendChild(pokemonHeight);
 
-    let test = document.createElement('a');
-    test.href = '#';
-    test.innerText = 'Testing';
-
     pokemonContent.appendChild(pokemonImg);
     pokemonContent.appendChild(pokemonTypes);
     pokemonContent.appendChild(pokemonInfo);
-    pokemonContent.appendChild(test);
 
     return pokemonContent;
   }
