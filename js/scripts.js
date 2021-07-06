@@ -149,6 +149,7 @@ let pokemonRepository = (function() {
     pokemon.types.forEach(function(type) {
       let pokemonType = document.createElement('span');
       pokemonType.classList.add('pokemon-modal__types__type');
+      pokemonType.classList.add(`is-${type}`);
       pokemonType.innerText = type;
       pokemonTypes.appendChild(pokemonType);
     });

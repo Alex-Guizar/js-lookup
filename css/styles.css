@@ -107,3 +107,66 @@ h1 {
     flex: 0 0 25%;
   }
 }
+
+/* Pokemon Modal Styles */
+.pokemon-modal {
+  text-align: center;
+}
+
+.pokemon-modal__img {
+  width: 96px;
+}
+
+.pokemon-modal__types {
+  margin-top: 16px;
+}
+
+.pokemon-modal__types__type {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #fff;
+  background: #777;
+  padding: 8px;
+  border-radius: 20px;
+  margin: 0 4px;
+}
+
+/* pokemon type colors */
+.pokemon-modal__types__type.is-bug {
+  background: #97A51D;
+}
+.pokemon-modal__types__type.is-poison {
+  background: #923A92;
+}
+.pokemon-modal__types__type.is-grass {
+  background: #69C23D;
+}
+.pokemon-modal__types__type.is-fire {
+  background: #ED6D12;
+}
+.pokemon-modal__types__type.is-flying {
+  background: #8E6FEB;
+}
+.pokemon-modal__types__type.is-water {
+  background: #4578ED;
+}
+.pokemon-modal__types__type.is-normal {
+  background: #9C9C63;
+}
+/* pokemon type framework
+.pokemon-modal__types__type.is- {
+  background: #;
+}
+*/
+
+.pokemon-modal__info {
+  list-style: none;
+  text-align: left;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.pokemon-modal__info li {
+  padding: 8px 0;
+}
