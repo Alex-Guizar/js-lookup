@@ -166,6 +166,7 @@ let pokemonRepository = (function() {
     let pokemonImg = createImageElement(pokemon);
     pokemonImg.classList.add('pokemon-modal__img');
 
+    // create and add pokemon types
     let pokemonTypes = document.createElement('div');
     pokemonTypes.classList.add('pokemon-modal__types');
 
@@ -177,6 +178,7 @@ let pokemonRepository = (function() {
       pokemonTypes.appendChild(pokemonType);
     });
 
+    // create and add info to list
     let pokemonInfo = document.createElement('ul');
     pokemonInfo.classList.add('pokemon-modal__info');
     // since we currently have a single piece of info directly declaring it
