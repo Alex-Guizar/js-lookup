@@ -1,5 +1,16 @@
 let pokemonRepository = (function() {
   let modalContainer = document.querySelector('#modal-container');
+  // modal focus trap variables
+  let focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  // get all focusable elements
+  let focusableContent = modalContainer.querySelectorAll(focusableElements);
+  // get first focusable element
+  let firstFocusableElement = focusableContent[0];
+  // get last focusable element
+  let lastFocusableElement = focusableContent[focusableContent.length - 1];
+  // variable to hold element used to open modal
+  let currentActivationElement = null;
+
   // create modal content and show Modal
   function showModal(title, content) {
     // clear all existing modal content
@@ -26,13 +37,24 @@ let pokemonRepository = (function() {
     modal.appendChild(contentElement);
     modalContainer.appendChild(modal);
 
+    // refresh focusable elements
+    focusableContent = modalContainer.querySelectorAll(focusableElements);
+    // refresh first focusable element
+    firstFocusableElement = focusableContent[0];
+    // refresh last focusable element
+    lastFocusableElement = focusableContent[focusableContent.length - 1];
+
     modalContainer.classList.add('is-visible');
+    modalContainer.focus();
   }
 
   // hide modal
   function hideModal() {
     let modalContainer = document.querySelector('#modal-container');
     modalContainer.classList.remove('is-visible');
+    if (currentActivationElement !== null) {
+      currentActivationElement.focus();
+    }
   }
 
   // Creates pokemonList variable and adds pokemon information to the list:
@@ -79,7 +101,6 @@ let pokemonRepository = (function() {
       details.types.forEach(function(type) {
         pokemon.types.push(type.type.name);
       });
-      console.log(details);
     }).catch(function(error) {
       hideLoadingMessage();
       console.log(error);
@@ -107,6 +128,8 @@ let pokemonRepository = (function() {
   function addClickEvent(button, pokemon) {
     button.addEventListener('click', function(e) {
       showDetails(pokemon);
+      // set button to variable to be returned to when modal is closed
+      currentActivationElement = this;
     });
   }
 
@@ -161,9 +184,14 @@ let pokemonRepository = (function() {
     pokemonHeight.innerText = `Height: ${pokemon.height}`;
     pokemonInfo.appendChild(pokemonHeight);
 
+    let test = document.createElement('a');
+    test.href = '#';
+    test.innerText = 'Testing';
+
     pokemonContent.appendChild(pokemonImg);
     pokemonContent.appendChild(pokemonTypes);
     pokemonContent.appendChild(pokemonInfo);
+    pokemonContent.appendChild(test);
 
     return pokemonContent;
   }
@@ -221,6 +249,27 @@ let pokemonRepository = (function() {
     let target = e.target;
     if (target === modalContainer) {
       hideModal();
+    }
+  });
+
+  // create focus trap for modal
+  document.addEventListener('keydown', function(e) {
+    let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+    if (!isTabPressed) {
+      return;
+    }
+
+    if (e.shiftKey) { // if shift key is pressed for shift + tab combo
+      if (document.activeElement === firstFocusableElement) {
+        lastFocusableElement.focus(); // add focus for the last focusable element
+        e.preventDefault();
+      }
+    } else { // if tab key is pressed
+      if (document.activeElement === lastFocusableElement) { // if focused has reached the last focusable element then focus first focusable element after pressing tab
+        firstFocusableElement.focus();
+        e.preventDefault();
+      }
     }
   });
 
