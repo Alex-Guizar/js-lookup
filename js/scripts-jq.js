@@ -14,7 +14,7 @@ let pokemonRepository = (function() {
 
     modalTitle.text(title);
     modalBody.html(content);
-  }
+  } 
 
   // hide modal
   function hideModal() {
