@@ -21,8 +21,6 @@ let pokemonRepository = (function() {
     contentElement.appendChild(content);
 
     modalBody.appendChild(content);
-
-    modalInstance.show();
   }
 
   // hide modal
@@ -114,14 +112,13 @@ let pokemonRepository = (function() {
     let listItem = document.createElement('li'); // create list item to hold pokemon button
     let button = document.createElement('button'); // create button to be used to interact with for pokemon info
 
-    listItem.classList.add('group-list-item');
-    listItem.classList.add('d-grid');
+    listItem.classList.add('list-group-item', 'd-grid', 'border-0');
 
     button.innerText = pokemon.name;
     button.type = 'button';
-    button.classList.add('pokemon-list__btn');
-    button.classList.add('btn');
-    button.classList.add('btn-primary');
+    button.classList.add('btn', 'btn-primary', 'pokemon-list__btn');
+    button.dataset.bsTarget = '#modal-container';
+    button.dataset.bsToggle = 'modal';
     // Add click event to show details of the pokemon when the button is clicked
     addClickEvent(button, pokemon);
 
@@ -153,8 +150,7 @@ let pokemonRepository = (function() {
 
     pokemon.types.forEach(function(type) {
       let pokemonType = document.createElement('span');
-      pokemonType.classList.add('pokemon-modal__types__type');
-      pokemonType.classList.add(`is-${type}`);
+      pokemonType.classList.add('pokemon-modal__types__type', `is-${type}`);
       pokemonType.innerText = type;
       pokemonTypes.appendChild(pokemonType);
     });
