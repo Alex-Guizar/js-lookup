@@ -1,57 +1,32 @@
 let pokemonRepository = (function() {
-  let modalContainer = document.querySelector('#modal-container');
-  // modal focus trap variables
-  let focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-  // get all focusable elements
-  let focusableContent = modalContainer.querySelectorAll(focusableElements);
-  // get first focusable element
-  let firstFocusableElement = focusableContent[0];
-  // get last focusable element
-  let lastFocusableElement = focusableContent[focusableContent.length - 1];
+  let modalInstance = new bootstrap.Modal(document.querySelector('#modal-container'));
   // variable to hold element used to open modal
   let currentActivationElement = null;
+
+  modalInstance._element.addEventListener('hidden.bs.modal', hideModal);
 
   // create modal content and show Modal
   function showModal(title, content) {
     // clear all existing modal content
-    modalContainer.innerHTML = '';
+    let modalContent = modalInstance._element.querySelector('.modal-content');
+    let modalTitle = modalContent.querySelector('.modal-title');
+    let modalBody = modalContent.querySelector('.modal-body');
 
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
+    modalBody.innerHTML = '';
 
-    // Add the new modal content
-    let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'Close';
-    closeButtonElement.addEventListener('click', hideModal);
-
-    let titleElement = document.createElement('h1');
-    titleElement.innerText = title;
+    modalTitle.innerText = title;
 
     let contentElement = document.createElement('div');
     contentElement.classList.add('modal__body');
     contentElement.appendChild(content);
 
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(contentElement);
-    modalContainer.appendChild(modal);
+    modalBody.appendChild(content);
 
-    // refresh focusable elements
-    focusableContent = modalContainer.querySelectorAll(focusableElements);
-    // refresh first focusable element
-    firstFocusableElement = focusableContent[0];
-    // refresh last focusable element
-    lastFocusableElement = focusableContent[focusableContent.length - 1];
-
-    modalContainer.classList.add('is-visible');
-    modalContainer.focus();
+    modalInstance.show();
   }
 
   // hide modal
   function hideModal() {
-    let modalContainer = document.querySelector('#modal-container');
-    modalContainer.classList.remove('is-visible');
     if (currentActivationElement !== null) {
       currentActivationElement.focus();
     }
@@ -139,8 +114,14 @@ let pokemonRepository = (function() {
     let listItem = document.createElement('li'); // create list item to hold pokemon button
     let button = document.createElement('button'); // create button to be used to interact with for pokemon info
 
+    listItem.classList.add('group-list-item');
+    listItem.classList.add('d-grid');
+
     button.innerText = pokemon.name;
+    button.type = 'button';
     button.classList.add('pokemon-list__btn');
+    button.classList.add('btn');
+    button.classList.add('btn-primary');
     // Add click event to show details of the pokemon when the button is clicked
     addClickEvent(button, pokemon);
 
@@ -230,45 +211,6 @@ let pokemonRepository = (function() {
       header.removeChild(loadingElement);
     }
   }
-
-  // watch for escape key to close modal
-  window.addEventListener('keydown', function(e) {
-    let modalContainer = document.querySelector('#modal-container');
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-      hideModal();
-    }
-  });
-
-  // watch outer modal container for click
-  modalContainer.addEventListener('click', function(e) {
-    // Since this is also triggered when clicking INSIDE the modal
-    // We only want to close if the user clicks directly on the overlay
-    let target = e.target;
-    if (target === modalContainer) {
-      hideModal();
-    }
-  });
-
-  // create focus trap for modal
-  document.addEventListener('keydown', function(e) {
-    let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
-
-    if (!isTabPressed) {
-      return;
-    }
-
-    if (e.shiftKey) { // if shift key is pressed for shift + tab combo
-      if (document.activeElement === firstFocusableElement) {
-        lastFocusableElement.focus(); // add focus for the last focusable element
-        e.preventDefault();
-      }
-    } else { // if tab key is pressed
-      if (document.activeElement === lastFocusableElement) { // if focused has reached the last focusable element then focus first focusable element after pressing tab
-        firstFocusableElement.focus();
-        e.preventDefault();
-      }
-    }
-  });
 
   return {
     loadList: loadList,

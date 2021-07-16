@@ -17,9 +17,6 @@ h1 {
 
 /* Pokemon List Styles */
 .pokemon-list {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
   padding: 0 8px;
   margin: 0;
 }
@@ -28,16 +25,6 @@ h1 {
   width: 100%;
   padding: 8px;
   flex: 0 0 100%;
-}
-
-.pokemon-list__btn {
-  display: block;
-  color: #000;
-  background: #E6E8E7;
-  width: 100%;
-  padding: 16px;
-  border: 1px solid #E6E8E7;
-  text-align: left;
 }
 
 @media (min-width: 576px) {
