@@ -1,0 +1,139 @@
+$types: (
+  'bug': #97A51D,
+  'dark': #644E40,
+  'dragon': #5E1DF7,
+  'electric': #F6C913,
+  'fairy': #E87890,
+  'fighting': #AE2A24,
+  'fire': #ED6D12,
+  'flying': #8E6FEB,
+  'ghost': #644E88,
+  'grass': #69C23D,
+  'ground': #DBB54D,
+  'ice': #7ECECE,
+  'normal': #9C9C63,
+  'poison': #923A92,
+  'psychic': #F73670,
+  'rock': #A48F32,
+  'steel': #A0A0C0,
+  'water': #4578ED,
+);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+/* Header Styles */
+.header {
+  padding: 0 16px;
+}
+
+/* Loading Style */
+.loading {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
+
+  &::after {
+    content: '';
+    display: block;
+    background-image: url('../img/pokeball.png');
+    background-size: 48px 48px;
+    height: 48px;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pokemon List Styles */
+.pokemon-list {
+  flex-wrap: wrap;
+  padding: 0 8px;
+  margin: 0;
+
+  & > li {
+    width: 100%;
+    padding: 8px;
+    flex: 0 0 100%;
+
+    @media (min-width: 576px) {
+      width: 50%;
+      flex: 0 0 50%;
+    }
+
+    @media (min-width: 768px) {
+      width: 33.3334%;
+      flex: 0 0 33.3334%;
+    }
+
+    @media (min-width: 1200px) {
+      width: 25%;
+      flex: 0 0 25%;
+    }
+  }
+}
+
+/* Pokemon Modal Styles */
+.pokemon-modal {
+  text-align: center;
+
+  &__img {
+    width: 96px;
+  }
+
+  &__types {
+    margin-top: 16px;
+
+    &__type {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #fff;
+      background: #777;
+      padding: 8px;
+      border-radius: 20px;
+      margin: 0 4px;
+
+      /* pokemon type colors */
+      @each $name, $color in $types {
+        &.is-#{$name} {
+          background: $color;
+        }
+      }
+    }
+  }
+
+  &__info {
+    list-style: none;
+    text-align: left;
+    padding: 0;
+    margin: 16px 0 0;
+
+    li {
+      padding: 8px 0;
+    }
+  }
+}

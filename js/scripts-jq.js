@@ -34,9 +34,9 @@ let pokemonRepository = (function() {
 
   // Load pokemon list from API
   function loadList() {
-    showLoadingMessage();
-    return $.ajax('https://pokeapi.co/api/v2/pokemon/', {dataType: 'json'}).then(function(data) {
-      hideLoadingMessage();
+    showLoadingMessage($('.header'));
+    return $.ajax('https://pokeapi.co/api/v2/pokemon/?limit=151', {dataType: 'json'}).then(function(data) {
+      hideLoadingMessage($('.header'));
       data.results.forEach(function(item) {
         const pokemon = {
           name: captialize(item.name),
@@ -47,7 +47,7 @@ let pokemonRepository = (function() {
         add(pokemon);
       });
     }).catch(function(error) {
-      hideLoadingMessage();
+      hideLoadingMessage($('.header'));
       // eslint-disable-next-line no-console
       console.error(error);
     });
@@ -55,9 +55,9 @@ let pokemonRepository = (function() {
 
   // Load pokemon details from detailsUrl provided
   function loadDetails(pokemon) {
-    showLoadingMessage();
+    showLoadingMessage($('.modal-content'));
     return $.ajax(pokemon.detailsUrl, {dataType: 'json'}).then(function(details) {
-      hideLoadingMessage();
+      hideLoadingMessage($('.modal-content'));
       pokemon.imgUrl = details.sprites.front_default;
       pokemon.height = details.height;
       pokemon.types = [];
@@ -65,7 +65,7 @@ let pokemonRepository = (function() {
         pokemon.types.push(type.type.name);
       });
     }).catch(function(error) {
-      hideLoadingMessage();
+      hideLoadingMessage($('.modal-content'));
       // eslint-disable-next-line no-console
       console.error(error);
     });
@@ -170,17 +170,15 @@ let pokemonRepository = (function() {
   }
 
   // create and add loading message to header
-  function showLoadingMessage() {
-    let header = $('.header');
-    let loadingElement = $('<div class="loading">Loading</div>');
+  function showLoadingMessage(parentEle) {
+    let loadingElement = $('<div class="loading"></div>');
 
-    header.append(loadingElement);
+    parentEle.append(loadingElement);
   }
 
   // remove loading message from header if it exists
-  function hideLoadingMessage() {
-    let header = $('.header');
-    let loadingElement = header.find('.loading');
+  function hideLoadingMessage(parentEle) {
+    let loadingElement = parentEle.find('.loading');
 
     if (loadingElement.length) {
       loadingElement.remove();
