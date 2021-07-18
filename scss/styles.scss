@@ -1,3 +1,4 @@
+/* Maps */
 $types: (
   'bug': #97A51D,
   'dark': #644E40,
@@ -19,6 +20,9 @@ $types: (
   'water': #4578ED,
 );
 
+/* Variables */
+$primary-color: #30A7D7;
+
 * {
   box-sizing: border-box;
 }
@@ -34,6 +38,37 @@ h1 {
 /* Header Styles */
 .header {
   padding: 0 16px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+  }
+
+  .btn-check:focus + &,
+  &:focus {
+    background-color: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+    box-shadow: 0 0 0 0.25rem rgba(mix($primary-color, $primary-color, 15%), .5);
+  }
+
+  .btn-check:checked + &,
+  .btn-check:active + &,
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    background-color: darken($primary-color, 20%);
+    border-color: darken($primary-color, 20%);
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(mix($primary-color, $primary-color, 15%), .5);
+    }
+  }
 }
 
 /* Loading Style */

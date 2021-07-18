@@ -1,4 +1,5 @@
-* {
+/* Variables */
+ * {
 	 box-sizing: border-box;
 }
  body {
@@ -10,6 +11,27 @@
 /* Header Styles */
  .header {
 	 padding: 0 16px;
+}
+/* Buttons */
+ .btn-primary {
+	 background-color: #30a7d7;
+	 border-color: #30a7d7;
+}
+ .btn-primary:hover {
+	 background-color: #2288b2;
+	 border-color: #2288b2;
+}
+ .btn-check:focus + .btn-primary, .btn-primary:focus {
+	 background-color: #2288b2;
+	 border-color: #2288b2;
+	 box-shadow: 0 0 0 0.25rem rgba(48, 167, 215, .5);
+}
+ .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+	 background-color: #1a6887;
+	 border-color: #1a6887;
+}
+ .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
+	 box-shadow: 0 0 0 0.25rem rgba(48, 167, 215, .5);
 }
 /* Loading Style */
  .loading {
