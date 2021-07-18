@@ -1,3 +1,4 @@
+/* global bootstrap */
 let pokemonRepository = (function() {
   let modalInstance = new bootstrap.Modal(document.querySelector('#modal-container'));
   // variable to hold element used to open modal
@@ -95,7 +96,7 @@ let pokemonRepository = (function() {
 
   // function to add click event to button and pass pokemon info
   function addClickEvent(button, pokemon) {
-    button.addEventListener('click', function(e) {
+    button.addEventListener('click', function() {
       showDetails(pokemon);
       // set button to variable to be returned to when modal is closed
       currentActivationElement = this;
