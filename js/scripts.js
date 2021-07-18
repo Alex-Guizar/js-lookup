@@ -54,7 +54,8 @@ let pokemonRepository = (function() {
       });
     }).catch(function(error) {
       hideLoadingMessage();
-      console.log(error);
+      // eslint-disable-next-line no-console
+      console.error(error);
     });
   }
 
@@ -73,7 +74,8 @@ let pokemonRepository = (function() {
       });
     }).catch(function(error) {
       hideLoadingMessage();
-      console.log(error);
+      // eslint-disable-next-line no-console
+      console.error(error);
     });
   }
 
